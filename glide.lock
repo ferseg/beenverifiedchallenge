@@ -1,0 +1,16 @@
+hash: 29555d3039af8626c839543bc9fa91c56906757d92b492ff79b9a029d099608d
+updated: 2016-04-30T19:47:52.012237885-06:00
+imports:
+- name: github.com/goji/goji
+  version: 0a0714568ced6c2f0138934b12029bcc2c52b993
+- name: goji.io
+  version: 0a0714568ced6c2f0138934b12029bcc2c52b993
+  subpackages:
+  - pat
+  - internal
+  - pattern
+- name: golang.org/x/net
+  version: 1aafd77e1e7f6849ad16a7bdeb65e3589a10b2bb
+  subpackages:
+  - context
+devImports: []

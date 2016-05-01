@@ -1,0 +1,10 @@
+package: github.com/ferseg/beenverifiedchallenge
+version: ""
+owners:
+- name: Fernando Segovia Salgado
+  email: fernandosegovia25@gmail.com
+import:
+- package: github.com/goji/goji
+- package: golang.org/x/net
+  subpackages:
+  - context
