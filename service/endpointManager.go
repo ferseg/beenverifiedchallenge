@@ -31,7 +31,6 @@ func searchSong(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 func searchSongsByLength(ctx context.Context, w http.ResponseWriter, r *http.Request) {
     min := pat.Param(ctx, "min")
     max := pat.Param(ctx, "max")
-    fmt.Println(min, max)
     result := searchSongByLength(min, max)
     fmt.Fprintf(w, result)
 }
@@ -42,6 +41,6 @@ func searchSongsByLength(ctx context.Context, w http.ResponseWriter, r *http.Req
 func InitServer() {
     mux := goji.NewMux()
     mux.HandleFuncC(pat.Get("/song/:searchCriteria"), searchSong)
-    mux.HandleFuncC(pat.Get("/song/min=:min&max=:max"), searchSongsByLength)
+    mux.HandleFuncC(pat.Get("/song/:min/:max"), searchSongsByLength)
     http.ListenAndServe("localhost:8000", mux)
 }

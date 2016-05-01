@@ -54,7 +54,7 @@ func executeSelectQuery(query string, conn *sql.DB, fn read) (string) {
 // Determines the way in which the selected rows will be read
 // for the createSearchSongQuery
 func readSelectedSongs(resultingRows *sql.Rows) (string) {
-    songs := make([]Song, 1)
+    songs := make([]Song, 0)
 
     // Iterate over the resulting rows
     for resultingRows.Next() {
@@ -75,7 +75,7 @@ func readSelectedSongs(resultingRows *sql.Rows) (string) {
 // Determines the way in which the selected rows will be read
 // for the createSearchByLengthQuery
 func readSelectedByLength (resultingRows *sql.Rows) (string) {
-    songs := make([]Song, 1)
+    songs := make([]Song, 0)
 
     // Iterate over the resulting rows
     for resultingRows.Next() {
