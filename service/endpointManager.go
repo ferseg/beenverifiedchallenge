@@ -1,10 +1,10 @@
 package service
 
 import (
-	"fmt"
-   	"net/http"
+    "fmt"
+    "net/http"
 
-	"goji.io"
+    "goji.io"
     "goji.io/pat"
     "golang.org/x/net/context"
 )
@@ -20,7 +20,7 @@ func searchSong(ctx context.Context, w http.ResponseWriter, r *http.Request) {
  * Initializes the server
  */
 func InitServer() {
-	mux := goji.NewMux()
-	mux.HandleFuncC(pat.Get("/song/:searchCriteria"), searchSong)
-	http.ListenAndServe("localhost:8000", mux)
+    mux := goji.NewMux()
+    mux.HandleFuncC(pat.Get("/song/:searchCriteria"), searchSong)
+    http.ListenAndServe("localhost:8000", mux)
 }

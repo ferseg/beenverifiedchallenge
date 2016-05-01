@@ -1,19 +1,19 @@
 package utils
 
 import(
-	"encoding/json"
+    "encoding/json"
 )
 
 
 // Checks if an error occurs
 func CheckError(err error) {
-	if err != nil {
+    if err != nil {
         panic(err)
     }
 }
 
 func ConvertToJSON(mapToConvert interface{}) ([]byte) {
-	result, err := json.MarshalIndent(mapToConvert, "", " ")
-	CheckError(err)
-	return result
+    result, err := json.MarshalIndent(mapToConvert, "", " ")
+    CheckError(err)
+    return result
 }
