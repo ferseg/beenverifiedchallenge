@@ -9,10 +9,11 @@ import (
     "golang.org/x/net/context"
 )
 
-func hello(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+// Searches a song in the database and returns the information in JSON format
+func searchSong(ctx context.Context, w http.ResponseWriter, r *http.Request) {
         criteria := pat.Param(ctx, "searchCriteria")
         result := searchSongs(criteria)
-        fmt.Fprintf(w, "Hello, %s!", result)
+        fmt.Fprintf(w, result)
 }
 
 /*
@@ -20,6 +21,6 @@ func hello(ctx context.Context, w http.ResponseWriter, r *http.Request) {
  */
 func InitServer() {
 	mux := goji.NewMux()
-	mux.HandleFuncC(pat.Get("/song/:searchCriteria"), hello)
+	mux.HandleFuncC(pat.Get("/song/:searchCriteria"), searchSong)
 	http.ListenAndServe("localhost:8000", mux)
 }

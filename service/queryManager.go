@@ -1,7 +1,7 @@
 package service
 
 // Builds the query to search a song
-func songQuery(criteria string) (query string) {
+func createSearchSongQuery(criteria string) (query string) {
 	query = "SELECT Songs.song, Songs.artist, Genres.name as genre, Songs.length " +
 				"FROM Songs " +
 				"INNER JOIN Genres " +
