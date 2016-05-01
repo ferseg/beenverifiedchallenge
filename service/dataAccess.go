@@ -25,6 +25,12 @@ type Song struct {
     Genre string `json:"genre"`
 }
 
+type GenreInfo struct {
+    Name string `json:"name"`
+    Songs int`json:"songs"`
+    TotalTime int `json:"totalTime"`
+}
+
 type read func(*sql.Rows) string
 
 
@@ -74,27 +80,26 @@ func readSelectedSongs(resultingRows *sql.Rows) (string) {
 
 // Determines the way in which the selected rows will be read
 // for the createSearchByLengthQuery
-func readSelectedByLength (resultingRows *sql.Rows) (string) {
-    songs := make([]Song, 0)
+func readSelectedGenres(resultingRows *sql.Rows) (string) {
+    genres := make([]GenreInfo, 0)
 
     // Iterate over the resulting rows
     for resultingRows.Next() {
-        var song string
-        var artist string
-        var length int
         var genre string
-        err := resultingRows.Scan(&song, &artist, &genre, &length)
+        var songCounter int
+        var totalLength int
+        err := resultingRows.Scan(&genre, &songCounter, &totalLength)
         utils.CheckError(err)
-        currentSong := Song{song, artist, length, genre}
-        songs = append(songs, currentSong)
+        currentGenre := GenreInfo{genre, songCounter, totalLength}
+        genres = append(genres, currentGenre)
 
     }
 
-    return string(utils.ConvertToJSON(songs))
+    return string(utils.ConvertToJSON(genres))
 }
 
-// Searches a song by a criteria
-func searchSongs(criteria string) (string) {
+// Searches songs by a criteria
+func searchSongsDA(criteria string) (string) {
     conn := createConnection()
 
     // Gets the sql query from the queryManager.go
@@ -109,8 +114,8 @@ func searchSongs(criteria string) (string) {
     return result
 }
 
-
-func searchSongByLength(min, max string) (string) {
+// Searches songs in a range of length
+func searchSongsByLengthDA(min, max string) (string) {
     conn := createConnection()
 
     // Gets the sql query from the queryManager.go
@@ -118,6 +123,22 @@ func searchSongByLength(min, max string) (string) {
 
     // Excecutes the query
     result := executeSelectQuery(query, conn, readSelectedSongs)
+    
+    // Closes 
+    conn.Close()
+    
+    return result
+}
+
+// Gets the information of all genres
+func createSearchGenreInfoDA() (string) {
+    conn := createConnection()
+
+    // Gets the sql query from the queryManager.go
+    query := createSearchGenreInfoQuery()
+
+    // Excecutes the query
+    result := executeSelectQuery(query, conn, readSelectedGenres)
     
     // Closes 
     conn.Close()

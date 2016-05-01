@@ -21,17 +21,24 @@ import (
     "golang.org/x/net/context"
 )
 
-// Searches a song in the database and returns the information in JSON format
-func searchSong(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+// Searches songs in the database and returns the information in JSON format
+func searchSongs(ctx context.Context, w http.ResponseWriter, r *http.Request) {
         criteria := pat.Param(ctx, "searchCriteria")
-        result := searchSongs(criteria)
+        result := searchSongsDA(criteria)
         fmt.Fprintf(w, result)
 }
 
+// Searches songs in a range of length
 func searchSongsByLength(ctx context.Context, w http.ResponseWriter, r *http.Request) {
     min := pat.Param(ctx, "min")
     max := pat.Param(ctx, "max")
-    result := searchSongByLength(min, max)
+    result := searchSongsByLengthDA(min, max)
+    fmt.Fprintf(w, result)
+}
+
+// Gets the info of all genres
+func createSearchGenreInfo(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+    result := createSearchGenreInfoDA()
     fmt.Fprintf(w, result)
 }
 
@@ -40,7 +47,8 @@ func searchSongsByLength(ctx context.Context, w http.ResponseWriter, r *http.Req
  */
 func InitServer() {
     mux := goji.NewMux()
-    mux.HandleFuncC(pat.Get("/song/:searchCriteria"), searchSong)
+    mux.HandleFuncC(pat.Get("/song/:searchCriteria"), searchSongs)
     mux.HandleFuncC(pat.Get("/song/:min/:max"), searchSongsByLength)
+    mux.HandleFuncC(pat.Get("/genreInfo"), createSearchGenreInfo)
     http.ListenAndServe("localhost:8000", mux)
 }
