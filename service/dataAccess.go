@@ -27,7 +27,7 @@ type Song struct {
 
 type GenreInfo struct {
     Name string `json:"name"`
-    Songs int`json:"songs"`
+    Songs int`json:"songQuantity"`
     TotalTime int `json:"totalTime"`
 }
 
