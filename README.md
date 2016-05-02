@@ -1,7 +1,7 @@
 # Beenverified Challenge
 
 ## Summary
-This repository contains the solution of the challenge needed for the hiring process
+Basic API with golang.
 
 ## Prerequisites
 1. The following programs must be installed before you run the API
